@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  liker_id: 1
+  liked_id: 1
+  approval: false
+
+two:
+  liker_id: 1
+  liked_id: 1
+  approval: false
