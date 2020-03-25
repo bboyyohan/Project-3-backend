@@ -23,9 +23,25 @@ class MatchesController < ApplicationController
         end 
     end 
 
+    def update
+        match = Match.find(params[:id])
+        match.update(match_params)
+        # byebug
+        render json: match
+    end 
+
     def getUserMatches
         user = User.all.find(params[:id])
-        render json: user.matches.to_json(:include => :liker)
+        render json: user.matches.to_json(:include => {
+            :liker => { 
+                :except => [:created_at, :updated_at]
+            }
+        },
+        :except => [:created_at, :updated_at])
+        
+        # render json: user.matches.to_json(:include => :liker)
+        # works ^
+
         # (:include => {
         #     :liker_id => {
         #         :except => [:created_at, :updated_at]
@@ -36,6 +52,6 @@ class MatchesController < ApplicationController
     private
 
     def match_params
-        params.require(:match).permit(:liker_id, :liked_id)
+        params.require(:match).permit(:liker_id, :liked_id, :approval)
     end 
 end
