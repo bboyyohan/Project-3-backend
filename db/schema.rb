@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2020_03_20_165333) do
     t.string "name"
     t.string "email"
     t.string "gender"
-    t.datetime "dob"
+    t.integer "age"
     t.string "description"
     t.string "picture"
     t.datetime "created_at", precision: 6, null: false

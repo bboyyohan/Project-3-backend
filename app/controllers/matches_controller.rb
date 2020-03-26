@@ -49,6 +49,26 @@ class MatchesController < ApplicationController
         # }, :except => [:created_at, :updated_at])
     end 
 
+    def getMutualMatches
+        user = User.all.find(params[:id])
+        allMatches = user.matches + user.interests
+        approvedMatches = allMatches.select{|a| a.approval == true}
+        render json: approvedMatches.to_json(:include => {
+            :liker => { 
+                :except => [:created_at, :updated_at]
+            },
+            :liked => { 
+                :except => [:created_at, :updated_at]
+            }
+        },
+        :except => [:created_at, :updated_at])
+    end 
+
+    def destroy
+        match = Match.find(params[:id])
+        match.destroy
+    end 
+
     private
 
     def match_params
